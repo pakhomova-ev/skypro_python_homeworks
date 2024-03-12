@@ -1,7 +1,7 @@
 # skypro_python_homeworks
 Репозиторий для домашних заданий на курсу SkyPro."Автоматизация тестирования Python” <br>
 - [x] HW1
-- [ ] HW2
+- [х] HW2
 - [ ] HW3
 - [ ] HW4
 - [ ] HW5
