@@ -6,9 +6,11 @@
 «дом»,
 «квартира»."""
 
+
 class Address:
-    
-    def __init__(self, address_index, address_city, address_street, address_building, address_apartment):
+
+    def __init__(self, address_index, address_city, address_street,
+                 address_building, address_apartment):
         self.index = address_index
         self.city = address_city
         self.street = address_street
