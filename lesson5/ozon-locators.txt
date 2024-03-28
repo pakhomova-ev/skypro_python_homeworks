@@ -1,0 +1,5 @@
+Локатор кнопки Войти - <div.fa2c[data-widget="profileMenuAnonymous"]>
+Локатор кнопки Заказы - <div.d4156-a[data-widget="orderInfo"] span.m8d>
+Локатор ссылки OZON Job (в футере) - <div.e2d>a[target="_blank"]>
+Локатор выбора валюты (верхний левый угол страницы) - <button[data-widget="selectedCurrency"]>
+Локатор выпадашки Везде (в поисковой строке) - <div.z6x>span[title="Везде"]>
