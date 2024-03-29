@@ -1,4 +1,4 @@
-Локатор логотипа (html-елемент, содержащий в себе значок и слово "авиасейлс") - <div.s__SPFggv0LyHGTAkWzF0K3>a>span[data-test-id="logo"]>
+Локатор логотипа (html-елемент, содержащий в себе значок и слово "авиасейлс") - <div>a.s__IfjHnfURFBTIihipyW2z>
 Локатор поля Откуда - <input#avia_form_origin-input>
 Локатор поля Куда - <input#avia_form_destination-input>
 Локатор поля Когда - <button[data-test-id="start-date-field"]>
