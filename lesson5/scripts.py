@@ -16,7 +16,7 @@ driver.get("http://the-internet.herokuapp.com/add_remove_elements/")
 sleep(3)
 
 buttonAddElement = 'button[onclick="addElement()"]'
-for i in range(0, 5):
+for i in range(5):
     driver.find_element(By.CSS_SELECTOR, buttonAddElement).click()
 sleep(3)
 
@@ -24,12 +24,8 @@ buttonDeleteElement = 'div#elements>button.added-manually'
 elementsButton = driver.find_elements(By.CSS_SELECTOR, buttonDeleteElement)
 print(f'01.01 Клик по кнопке. Chrome_Кнопок в списке - {len(elementsButton)}')
 
-first_window = driver.current_window_handle
-# driver.quit()
 
 # 02.01 Клик по кнопке без ID
-# driver = webdriver.Chrome(
-#     service=ChromeService(ChromeDriverManager().install()))
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -40,37 +36,30 @@ for i in range(0, 3):
     buttonDynamicId = 'button.btn.btn-primary'
     driver.find_element(By.CSS_SELECTOR, buttonDynamicId).click()
     sleep(3)
-# print(f"02.01 ButtonDynamicId - {driver.find_element(
-#    By.CSS_SELECTOR, buttonDynamicId).get_attribute('id')}")
-# как перевенести текст, чтобы не было ошибки синтаксиса ф-строки???
+
     print("02.01 Клик по кнопке без ID. ButtonDynamicId - " +
           driver.find_element(By.CSS_SELECTOR, buttonDynamicId)
           .get_attribute("id"))
     driver.refresh()
-    sleep(3)
-# driver.quit()
 
-# # 03.01 Клик по кнопке с CSS-классом
-# driver = webdriver.Chrome(
-#     service=ChromeService(ChromeDriverManager().install()))
+    sleep(3)
+
+# 03.01 Клик по кнопке с CSS-классом
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
 
 driver.get("http://uitestingplayground.com/classattr")
 sleep(5)
-for i in range(0, 3):
+for i in range(3):
     buttonDynamicId = 'button.btn-primary'
     driver.find_element(By.CSS_SELECTOR, buttonDynamicId).click()
     sleep(3)
     alert = driver.switch_to.alert
     alert.accept()
     sleep(3)
-# driver.quit()
 
-# # 04.01 Модальное окно
-# driver = webdriver.Chrome(
-# service=ChromeService(ChromeDriverManager().install()))
+# 04.01 Модальное окно
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -82,11 +71,7 @@ closeTheModalWindow = driver.find_element(
     "div#modal div.modal-footer>p").click()
 sleep(2)
 
-# driver.quit()
-
-# # 05.02 Поле ввода
-# driver = webdriver.Chrome(
-#     service=ChromeService(ChromeDriverManager().install()))
+# 05.02 Поле ввода
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -105,11 +90,7 @@ sleep(3)
 input_text.send_keys(999)
 sleep(3)
 
-# driver.quit()
-
-# # 06.02 Форма авторизации
-# driver = webdriver.Chrome(
-#     service=ChromeService(ChromeDriverManager().install()))
+# 06.02 Форма авторизации
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -127,10 +108,8 @@ button_login = 'button[type="submit"]'
 driver.find_element(By.CSS_SELECTOR, button_login).click()
 sleep(3)
 
-driver.quit()
-
 # # ====================FireFox=======================
-# # 01.02 Клик по кнопке
+# 01.02 Клик по кнопке
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
                                                   install()))
 
@@ -146,11 +125,9 @@ buttonDeleteElement = 'div#elements>button.added-manually'
 elementsButton = driver.find_elements(By.CSS_SELECTOR, buttonDeleteElement)
 print(f'01.02 Клик по кнопке. FireFox_Кнопок в списке - {len(elementsButton)}')
 
-# driver.quit()
 
-# # 02.02 Клик по кнопке без ID
-# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
-#                                                   install()))
+# 02.02 Клик по кнопке без ID
+
 # Open new tab for next task
 driver.switch_to.new_window('tab')
 
@@ -164,11 +141,8 @@ for i in range(0, 3):
           .get_attribute("id"))
     driver.refresh()
     sleep(3)
-# driver.quit()
 
-# # 03.02 Клик по кнопке с CSS-классом
-# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
-#                                                   install()))
+# 03.02 Клик по кнопке с CSS-классом
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -182,11 +156,8 @@ for i in range(0, 3):
     alert = driver.switch_to.alert
     alert.accept()
     sleep(3)
-# driver.quit()
 
-# # 04.02 Модальное окно
-# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
-#                                                   install()))
+# 04.02 Модальное окно
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -197,11 +168,7 @@ closeTheModalWindow = driver.find_element(
     By.CSS_SELECTOR, "div#modal div.modal-footer>p").click()
 sleep(2)
 
-# driver.quit()
-
-# # 05.02 Поле ввода
-# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
-#                                                   install()))
+# 05.02 Поле ввода
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
@@ -220,11 +187,7 @@ sleep(3)
 input_text.send_keys(999)
 sleep(3)
 
-# driver.quit()
-
-# # 06.02 Форма авторизации
-# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().
-#                                                   install()))
+# 06.02 Форма авторизации
 
 # Open new tab for next task
 driver.switch_to.new_window('tab')
