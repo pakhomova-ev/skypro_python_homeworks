@@ -1,6 +1,7 @@
 # my files and directories
 /.vscode/
-check_aviasales-locators.py
+lesson5/test_1.py
+lesson6/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
