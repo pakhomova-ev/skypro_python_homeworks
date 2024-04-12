@@ -4,6 +4,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import re
 
+total_in_cart = '$58.29'
+product_buttons = [
+        "sauce-labs-backpack",
+        "sauce-labs-bolt-t-shirt",
+        "sauce-labs-onesie"
+    ]
+
 
 def test_total_in_cart():
     driver = webdriver.Chrome(
@@ -20,15 +27,10 @@ def test_total_in_cart():
     driver.find_element(
         By.CSS_SELECTOR, "input#login-button").click()
 
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "button[data-test='add-to-cart-sauce-labs-backpack']").click()
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "button[data-test='add-to-cart-sauce-labs-bolt-t-shirt']").click()
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "button[data-test='add-to-cart-sauce-labs-onesie']").click()
+    for i in product_buttons:
+        driver.find_element(
+            By.CSS_SELECTOR,
+            f"button[data-test='add-to-cart-{i}']").click()
 
     driver.find_element(
         By.CSS_SELECTOR,
@@ -52,10 +54,17 @@ def test_total_in_cart():
         By.CSS_SELECTOR,
         "input[data-test='continue']").click()
 
+    items_in_cart = driver.find_elements(
+        By.CSS_SELECTOR, "div[data-test='inventory-item']")
+
+    assert len(items_in_cart) == len(product_buttons)
+
     text = driver.find_element(
-        By.XPATH, "//div[@data-test='total-label']").text
+        By.CSS_SELECTOR,
+        "div[data-test='total-label']").text
+
+    driver.quit()
 
     result = re.search(r'\$([0-9]+\.[0-9]+)', text)
-    print(result.group())
 
-    assert result.group() == '$58.29'
+    assert result.group() == total_in_cart

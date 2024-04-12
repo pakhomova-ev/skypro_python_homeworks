@@ -1,4 +1,3 @@
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,7 +10,8 @@ def test_color_of_form_elements():
                                                     .install()))
     driver.maximize_window()
 
-    background_color_alert_danger = Color.from_string('rgba(248, 215, 218, 1)')
+    background_color_alert_danger = Color.from_string(
+        'rgba(248, 215, 218, 1)')
     background_color_alert_success = Color.from_string(
         'rgba(209, 231, 221, 1)')
 
