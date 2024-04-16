@@ -10,9 +10,7 @@ import time
 
 @pytest.mark.parametrize(
         'spinner_timer, first_num, second_num, operator, result',
-        [
-            (45, 7, 8, '+', 15)
-            ])
+        [(45, 7, 8, '+', 15)])
 def test_caculator_spinner_time(spinner_timer, first_num,
                                 second_num, operator, result):
 

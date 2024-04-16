@@ -12,8 +12,7 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()))
 driver.maximize_window()
 
-driver.get(
-    "http://uitestingplayground.com/textinput")
+driver.get("http://uitestingplayground.com/textinput")
 
 driver.find_element(By.ID, "newButtonName").send_keys("SkyPro")
 
