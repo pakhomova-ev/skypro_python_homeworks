@@ -19,8 +19,7 @@ driver.get(
     "http://uitestingplayground.com/ajax")
 
 driver.find_element(By.ID, "ajaxButton").click()
-waiter.until(EC.presence_of_element_located((
-    By.CSS_SELECTOR, 'p.bg-success')))
+waiter.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'p.bg-success')))
 
 print(driver.find_element(By.CSS_SELECTOR, 'p.bg-success').text)
 
