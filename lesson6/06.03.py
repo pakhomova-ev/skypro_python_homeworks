@@ -19,8 +19,8 @@ driver.get(
 
 waiter = WebDriverWait(driver, 10)
 
-waiter.until(EC.presence_of_element_located((
-    By.CSS_SELECTOR, 'img#landscape')))
+waiter.until(EC.presence_of_element_located(
+    (By.CSS_SELECTOR, 'img#landscape')))
 
 print(driver.find_element(By.CSS_SELECTOR, "img#award").get_attribute("src"))
 
