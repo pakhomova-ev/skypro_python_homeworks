@@ -29,30 +29,22 @@ def test_total_in_cart():
 
     for i in product_buttons:
         driver.find_element(
-            By.CSS_SELECTOR,
-            f"button[data-test='add-to-cart-{i}']").click()
+            By.CSS_SELECTOR, f"button[data-test='add-to-cart-{i}']").click()
 
     driver.find_element(
-        By.CSS_SELECTOR,
-        "a[data-test='shopping-cart-link']").click()
+        By.CSS_SELECTOR, "a[data-test='shopping-cart-link']").click()
 
     driver.find_element(
-        By.CSS_SELECTOR,
-        "button[data-test='checkout']").click()
+        By.CSS_SELECTOR, "button[data-test='checkout']").click()
 
     driver.find_element(
-        By.CSS_SELECTOR,
-        "input[data-test='firstName']").send_keys("Ippolit")
+        By.CSS_SELECTOR, "input[data-test='firstName']").send_keys("Ippolit")
     driver.find_element(
-        By.CSS_SELECTOR,
-        "input[data-test='lastName']").send_keys("Ippolitov")
+        By.CSS_SELECTOR, "input[data-test='lastName']").send_keys("Ippolitov")
     driver.find_element(
-        By.CSS_SELECTOR,
-        "input[data-test='postalCode']").send_keys("123567")
+        By.CSS_SELECTOR, "input[data-test='postalCode']").send_keys("123567")
 
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "input[data-test='continue']").click()
+    driver.find_element(By.CSS_SELECTOR, "input[data-test='continue']").click()
 
     items_in_cart = driver.find_elements(
         By.CSS_SELECTOR, "div[data-test='inventory-item']")
@@ -60,8 +52,7 @@ def test_total_in_cart():
     assert len(items_in_cart) == len(product_buttons)
 
     text = driver.find_element(
-        By.CSS_SELECTOR,
-        "div[data-test='total-label']").text
+        By.CSS_SELECTOR, "div[data-test='total-label']").text
 
     driver.quit()
 

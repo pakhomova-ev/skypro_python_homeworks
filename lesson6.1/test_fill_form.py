@@ -34,8 +34,7 @@ def test_background_color_unfilled_elements_in_form(driver):
     for id, value in full_id_list.items():
         driver.find_element(By.NAME, id).send_keys(value)
 
-    driver.find_element(
-        By.CSS_SELECTOR, "button.btn-outline-primary").click()
+    driver.find_element(By.CSS_SELECTOR, "button.btn-outline-primary").click()
 
     zip_code_check = driver.find_element(
         By.ID, "zip-code").value_of_css_property("background-color")
@@ -48,8 +47,7 @@ def test_background_color_filled_elements_in_form(driver):
     for id, value in full_id_list.items():
         driver.find_element(By.NAME, id).send_keys(value)
 
-    driver.find_element(
-        By.CSS_SELECTOR, "button.btn-outline-primary").click()
+    driver.find_element(By.CSS_SELECTOR, "button.btn-outline-primary").click()
 
     for i in id_list:
         i_check = driver.find_element(By.ID, i).value_of_css_property(
