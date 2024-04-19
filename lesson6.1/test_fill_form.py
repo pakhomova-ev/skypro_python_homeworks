@@ -37,7 +37,7 @@ def test_background_color_unfilled_elements_in_form(driver):
     driver.find_element(By.CSS_SELECTOR, "button.btn-outline-primary").click()
 
     zip_code_check = driver.find_element(
-        By.ID, "zip-code").value_of_css_property("background-color")
+        By.NAME, "zip-code").value_of_css_property("background-color")
 
     assert zip_code_check == background_color_alert_danger
 

@@ -1,10 +1,9 @@
 # my files and directories
 /.vscode/
-lives/test_1.py
+lives
 practice
-lesson7/pages
-lesson7/lesson7_page_object_test.py
 lesson5/test_1.py
+*/.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
