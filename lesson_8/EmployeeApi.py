@@ -61,7 +61,7 @@ class EmployeeApi:
         my_headers["x-client-token"] = self.get_token()
         resp = requests.post(
             self.url + '/employee', headers=my_headers)
-        return resp.json()
+        return resp.status_code
 
     def get_list_employee(self, params_to_add):
         resp = requests.get(self.url + '/employee', params=params_to_add)

@@ -42,14 +42,12 @@ def test_get_list_employee():
     # будет проверка из базы данных
 
 
-@pytest.mark.xfail(reason="company_id is required")
+@pytest.mark.xfail(reason="место 400 приходит 500 статус")
 def test_get_list_employee_without_company_id():
     com.create_company('Company for getting list of empoyees 8')
 
     result = emp.get_list_employee_without_company_id()
-    assert result["statusCode"] == 400
-    assert result["message"] == 'Bad Request'
-    # вместо 400 приходит 500 статус
+    assert result == 400
 
 
 def test_create_employee():
