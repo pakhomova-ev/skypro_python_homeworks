@@ -74,6 +74,10 @@ class EmployeeApi:
     def get_employee_by_id_without_id(self):
         resp = requests.get(self.url + '/employee/')
         return resp.json()
+    
+    def get_list_employee_without_company_id(self):
+        resp = requests.get(self.url + '/employee')
+        return resp.json()
 
     def change_info_employee(
             self, emp_id, last_name, email, url, phone, is_active):
@@ -124,8 +128,7 @@ class EmployeeApi:
             json=cred)
         return resp.json()
 
-    def change_info_employee_without_body(
-            self, emp_id, last_name, email, url, phone, is_active):
+    def change_info_employee_without_body(self):
 
         my_headers = {}
         my_headers["x-client-token"] = self.get_token()

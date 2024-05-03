@@ -43,11 +43,13 @@ def test_get_list_employee():
 
 
 @pytest.mark.xfail(reason="company_id is required")
-def test_req_fields_get_list_employee():
+def test_get_list_employee_without_company_id():
     com.create_company('Company for getting list of empoyees 8')
 
-    result = emp.get_list_employee()
-    assert len(result) == 1
+    result = emp.get_list_employee_without_company_id()
+    assert result["statusCode"] == 400
+    assert result["message"] == 'Bad Request'
+    # вместо 400 приходит 500 статус
 
 
 def test_create_employee():
@@ -74,13 +76,12 @@ def test_create_employee():
     # проверка созданного работника
     new_emp_result = emp.get_employee_by_id(id_new_emp)
 
-    # проверка заполненных при создании полей
+    # проверка полей
     assert new_emp_result["id"] == id_new_emp
     assert new_emp_result["firstName"] == first_name
     assert new_emp_result["lastName"] == last_name
     assert new_emp_result["isActive"] is True
 
-    # проверка не заполненных полей
     # assert new_emp_result["email"] == email # - не сохраняется значение
     assert new_emp_result["middleName"] == middle_name
     assert new_emp_result["avatar_url"] == url
@@ -291,12 +292,7 @@ def test_patch_employee_without_id():
 
 @pytest.mark.xfail(reason="без тела возвращается информация по пользователю")
 def test_patch_employee_without_body():
-    new_company = com.create_company(
-        'Company for changing employee', 'check all keys and values')
-    new_company_id = new_company['id']
-
-    new_employee = emp.create_employee(
-        new_company_id, first_name, last_name, email, is_active)
+    new_employee = emp.create_employee()
     new_employee_id = new_employee['id']
 
     result = emp.change_info_employee_without_body(
