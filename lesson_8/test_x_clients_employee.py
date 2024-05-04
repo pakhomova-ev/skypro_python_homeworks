@@ -47,7 +47,8 @@ def test_get_list_employee_without_company_id():
     com.create_company('Company for getting list of empoyees 8')
 
     result = emp.get_list_employee_without_company_id()
-    assert result == 400
+    assert result["statusCode"] == 400
+    assert result["message"] == 'Bad Request'
 
 
 def test_create_employee():
@@ -128,8 +129,7 @@ def test_create_employee_without_body():
     assert len(emp_list_f) == 0
 
     new_emp = emp.create_employee_without_body()
-    assert new_emp["statusCode"] == 500
-    assert new_emp["message"] == 'Internal server error'
+    assert new_emp == 500
     # необходимо прописать более информационный статус код и сообщение.
     # возможно 400 - плохой запрос
 
@@ -288,18 +288,21 @@ def test_patch_employee_without_id():
     assert result["error"] == 'Not Found'
 
 
-@pytest.mark.xfail(reason="без тела возвращается информация по пользователю")
+@pytest.mark.xfail(reason="ФР: без тела возвр. инфо по пользователю ОР: статус 400")
 def test_patch_employee_without_body():
-    new_employee = emp.create_employee()
+    new_company = com.create_company(
+        'Company for changing employee', 'check all keys and values')
+    new_company_id = new_company['id']
+
+    new_employee = emp.create_employee(
+        new_company_id, first_name, last_name, email, is_active)
     new_employee_id = new_employee['id']
 
-    result = emp.change_info_employee_without_body(
-        new_employee_id, new_last_name, new_email, new_url,
-        new_phone, new_is_active)
+    result = emp.change_info_employee_without_body(new_employee_id)
 
     # удалить компанию
-    assert result["statusCode"] == 404
-    assert result["error"] == 'Not Found'
+    assert result["statusCode"] == 400
+    assert result["error"] == 'Bad Request'
 
 
 @pytest.mark.xfail(reason="ФР: 500, ОР: 404")

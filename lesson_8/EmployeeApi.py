@@ -128,7 +128,7 @@ class EmployeeApi:
             json=cred)
         return resp.json()
 
-    def change_info_employee_without_body(self):
+    def change_info_employee_without_body(self, emp_id):
 
         my_headers = {}
         my_headers["x-client-token"] = self.get_token()
@@ -136,3 +136,8 @@ class EmployeeApi:
         resp = requests.patch(
             self.url + '/employee/' + str(emp_id), headers=my_headers)
         return resp.json()
+
+    def get_list_employee_exp(self, params_to_add):
+        resp = requests.get(self.url + '/employee', params=params_to_add)
+        return resp
+
