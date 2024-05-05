@@ -46,11 +46,12 @@ def test_get_list_employee():
     # не написать скрипт для бд из-за генерируемого id 
     # (брать максимальный id сотрудника и присваивать макс+1)
     # создаем список (пока одинаковых) сотрудников апи
-    new_emps_id = emp.create_list_employee_get_list_id(
-        num_emps, company_id, first_name, last_name, email, is_active)
+    db_emp.create_employees(
+        company_id, num_emps, is_active, first_name, last_name,
+        middle_name,phone, url, email, birthdate)
 
     # проверяем что создали верное кол-во сотрудников
-    assert len(new_emps_id) == num_emps
+    assert len(db_emp.get_list_id_emps_by_id_company(company_id)) == num_emps
 
     result_api = emp.get_list_employee(params_to_add={'company': company_id})
     result_db = db_emp.get_list_emps_by_id_company(company_id)
@@ -421,3 +422,24 @@ def test_delete_list_emp_by_company_id():
     db_emp.delete_list_emps_company_id(4014)
     len_a = len(db_emp.get_list_id_emps_by_id_company(4014))
     assert len_a == 0
+
+@pytest.mark.skip("отладка метода")
+def test_max_id_emp():
+    ek = db_emp.get_emp_max_id()
+    assert ek > 0
+
+@pytest.mark.skip("отладка метода")
+def test_create_one_employe_by_max_id():
+    db_emp.create_employee(4014)
+    new_emp_db = db_emp.get_emp_max_id()
+    new_emp_d = db_emp.get_list_id_emps_by_id_company(4014)
+    assert 3+2 == 5
+
+
+@pytest.mark.skip("отладка метода")  
+def test_create_employes_by_max_id():
+    db_emp.create_employees(
+        4014, num_emps, is_active, first_name, last_name, middle_name,
+        phone, url, email, birthdate)
+    list_new_emp = db_emp.get_list_id_emps_by_id_company(4014)
+    assert 2+3 == 5
