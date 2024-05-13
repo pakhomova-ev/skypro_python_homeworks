@@ -17,20 +17,21 @@ class CompanyTable:
 
     def get_companies(self):
         return self.__db.execute(self.__scripts["select"]).fetchall()
-    
+
     def get_active_companies(self):
-        return self.__db.execute(self.__scripts["select only active"]).fetchall()
-    
-    def delete_soft(self, id):
-        self.__db.execute(self.__scripts["delete by id"], id_to_delete=id)
+        return self.__db.execute(
+            self.__scripts["select only active"]).fetchall()
 
+    def delete_company(self, com_id: int) -> None:
+        self.__db.execute(self.__scripts["delete by id"], id_to_delete=com_id)
 
-    def create(self, name):
+    def create_company(self, name):
         self.__db.execute(self.__scripts["insert new"], new_name=name)
 
     def get_max_id(self):
         return self.__db.execute(self.__scripts["get max id"]).\
                fetchall()[0][0]
-    
-    def get_company_by_id(self, id):
-        return self.__db.execute(self.__scripts["select by id"], select_id=id).fetchall()
+
+    def get_company_by_id(self, com_id):
+        return self.__db.execute(
+            self.__scripts["select by id"], select_id=com_id).fetchall()
