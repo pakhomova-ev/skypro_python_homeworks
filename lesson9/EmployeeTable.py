@@ -11,16 +11,17 @@ class EmployeeTable:
         "select by id": text("select * from employee where id =:id_to_select"),
         "select list emp by id company": text("select * from employee where company_id =:company_id order by id"),
         "delete by id": text("delete from employee where id =:id_to_delete"),
+        "select_by_name": text("select * from company where name = 'Company Empoyees 8'"),
         "get max id": "select MAX(id) from employee",
-        "insert new": text("insert into employee(id, first_name, last_name,company_id, is_active, phone, email, middle_name, birthdate, avatar_url) values (:id, :first_name, :last_name, :company_id, :is_active, :phone, :email, :middle_name, :birthdate, :url)"),
-        "update by id": text("update employee set first_name=:first_name where id=:id_emp")
+        "insert new": text("insert into employee( first_name, last_name,company_id, is_active, phone, email, middle_name, birthdate, avatar_url) values (:first_name, :last_name, :company_id, :is_active, :phone, :email, :middle_name, :birthdate, :url)"),
+        "update by id": text("update employee set first_name=:first_name, last_name=:last_name, email=:email, middle_name=:middle_name, is_active=:is_active, phone=:phone, birthdate=:birthdate,avatar_url=:url where id=:id_emp")
     }
 
     def __init__(self, connection_string):
         self.__db = create_engine(connection_string)
 
     @allure.step("db.получить сотрудника по id")
-    def get_emp_by_id(self, emp_id: int) -> dict:
+    def get_emp_by_id(self, emp_id: int) -> list:
         """ Метод находит сотрудника по id."""
         query = self.__db.execute(self.__scripts["select by id"],
                                   id_to_select=emp_id)
@@ -68,22 +69,18 @@ class EmployeeTable:
         return max_id_emp
     
     # а что если изменятся названия ключей - как упростить поддержку тестовых данных?
-    # проверить, возможно не нужно узнавать максимальное айди и вставлять в запрос
     @allure.step("db.создать нового сотрудника компании")
     def create_employee(self, com_id: int, is_active: bool,
-                        dict_creds_emp: dict) -> dict:
+                        dict_creds_emp: dict) -> None:
         """
         Метод создает нового сотрудника компании с генерируемыми
         значениями ключей
         """
-        # max_id_b = self.get_emp_max_id()
-        # max_id = max_id_b + 1
 
         query = self.__db.execute(self.__scripts["insert new"],
-                                  id=max_id,
                                   company_id=com_id,
-                                  first_name=dict_creds_emp["firstName"],
-                                  last_name=dict_creds_emp["lasttName"],
+                                  first_name=dict_creds_emp["first_name"],
+                                  last_name=dict_creds_emp["last_name"],
                                   is_active=is_active,
                                   phone=dict_creds_emp["phone"],
                                   url=dict_creds_emp["url"],
@@ -92,7 +89,6 @@ class EmployeeTable:
                                   middle_name=dict_creds_emp["middle_name"])
         allure.attach(str(query.context.cursor.query), 'SQL',
                       allure.attachment_type.TEXT)
-        return query
     
     # как создать несколько разных сотрудников ???
     # создание тестовых данных в классе бд плохо
@@ -122,7 +118,6 @@ class EmployeeTable:
                               phone=phone, url=url, birthdate=birthdate,
                               email=email, middle_name=middle_name)
 
-    # запрос ничего не возращает?
     @allure.step("db.удалить сотрудника по id")
     def delete(self, emp_id: int) -> None:
         """
@@ -132,8 +127,7 @@ class EmployeeTable:
                                   id_to_delete=emp_id)
         allure.attach(str(query.context.cursor.query), 'SQL',
                       allure.attachment_type.TEXT)
-        
-    # будет ли работать способ возвращения строки запрос из цикла?
+ 
     @allure.step("db.удалить список сотрудников по id")
     def delete_list_emps(self, list: list) -> None:
         """
@@ -146,7 +140,6 @@ class EmployeeTable:
             allure.attach(str(query.context.cursor.query), 'SQL',
                           allure.attachment_type.TEXT)
 
-    # будет ли работать способ возвращения строки запрос из цикла?
     @allure.step("db.удалить список сотрудников по id компании")
     def delete_list_emps_by_company_id(self, company_id: int) -> None:
         """
@@ -161,61 +154,25 @@ class EmployeeTable:
             allure.attach(str(query.context.cursor.query), 'SQL',
                           allure.attachment_type.TEXT)
 
-    # def patch_employee(self, id_emp, is_active):
-    #     fake = Faker("ru_RU")
-    #     first_name = fake.first_name()
-    #     last_name = fake.last_name()
-    #     email = fake.email()
-    #     middle_name = fake.first_name_male()
-    #     phone = fake.random_number(digits=11, fix_len=True)
-    #     birthdate = '2005-04-26T11:19:37.153Z'
-    #     url = fake.url()
-    #     return self.__db.execute(self.__scripts["update by id"],
-    #                              id_emp=id_emp, first_name=first_name,
-    #                              last_name=last_name, is_active=is_active,
-    #                              phone=phone, url=url, birthdate=birthdate,
-    #                              email=email, middle_name=middle_name)
-    
-    # проверить метод
-    # def generate_all_fields_emp(self, num: int, is_active: bool, max_id: int) -> list:
-    #     fake = Faker("ru_RU")
-    #     # max_id_b = self.get_emp_max_id()
-    #     # max_id = max_id_b + 1
-    #     list_dicts_new_emp = []
-    #     for i in range(num):
-    #         dict_emp["id"] = max_id
-    #         dict_emp["firstName"] = first_name
-    #         dict_emp["lastName"] = last_name
-    #         dict_emp["middleName"] = middle_name
-    #         dict_emp["isActive"] = is_active
-    #         dict_emp["phone"] = phone
-    #         dict_emp["ulr"] = url
-    #         dict_emp["birthdate"] = birthdate
-    #         dict_emp["email"] = email
-    #         list_dicts_new_emp.append(dict_emp)
-
-    #     return list_dicts_new_emp
-
-    # точно возвращает словарь?
-    # проверить как формируется список и подтягивается ли список из генерайт
     def patch_employee(self, id_emp: int, is_active: bool,
-                       dict_creds_emp: dict) -> dict:
+                       dict_creds_emp: dict) -> None:
         query = self.__db.execute(self.__scripts["update by id"],
-                                  id_emp=id_emp, 
-                                  first_name=dict_creds_emp[0]["firstName"],
-                                  last_name=dict_creds_emp[0]["lastName"],
+                                  id_emp=id_emp,
+                                  first_name=dict_creds_emp["first_name"],
+                                  last_name=dict_creds_emp["last_name"],
                                   is_active=is_active,
-                                  phone=dict_creds_emp[0]["phone"],
-                                  url=dict_creds_emp[0]["ulr"],
-                                  birthdate=dict_creds_emp[0]["birthdate"],
-                                  email=dict_creds_emp[0]["email"],
-                                  middle_name=dict_creds_emp[0]["middleName"])
+                                  phone=dict_creds_emp["phone"],
+                                  url=dict_creds_emp["url"],
+                                  birthdate=dict_creds_emp["birthdate"],
+                                  email=dict_creds_emp["email"],
+                                  middle_name=dict_creds_emp["middle_name"])
         allure.attach(str(query.context.cursor.query), 'SQL',
                       allure.attachment_type.TEXT)
-        return query
 
     # db = create_engine(db_connection_string).connect()
     # sql_statement = text("select * from company where id=:company_id")
     # row = db.evecute(sql_statement, {"company_id": 2338}).fetchall()
     # db.commit()
     # 
+    def get_companies(self):
+        return self.__db.execute(self.__scripts["select_by_name"]).fetchall()

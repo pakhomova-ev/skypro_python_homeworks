@@ -103,12 +103,12 @@ class EmployeeApi:
         return resp.json()
 
     @allure.step("api.получить список сотрудников по параметру - {params}")
-    def get_list_employee(self, params_to_add) -> list:
+    def get_list_employee(self, params: dict) -> list:
         """
         Метод возвращает список словарей с данными сотрудников,
         соответствующих определенному параметру.
         """
-        resp = requests.get(self.url + '/employee', params=params_to_add)
+        resp = requests.get(self.url + '/employee', params)
         return resp.json()
 
     @allure.step("api.получить сотрудника по id")
@@ -141,6 +141,10 @@ class EmployeeApi:
     @allure.step("api.изменить информацию о сотруднике без токена авторизации")
     def change_info_employee_without_auth_token(
             self, emp_id: int, api_creds_emp: dict) -> dict:
+        """
+        Метод отправляет запрос на изменение информации о сотруднике
+        без токена авторизации
+        """
 
         resp = requests.patch(
             self.url + '/employee/' + str(emp_id),
@@ -150,6 +154,10 @@ class EmployeeApi:
     @allure.step("api.изменить информацию о сотруднике без id")
     def change_info_employee_without_id(
             self, api_creds_emp: dict) -> dict:
+        """
+        Метод отправляет запрос на изменение информации о сотруднике
+        без id сотрудника
+        """
   
         my_headers = {}
         my_headers["x-client-token"] = self.get_token()
@@ -162,6 +170,10 @@ class EmployeeApi:
     @allure.step("api.изменить информацию о сотруднике без тела запроса")
     def change_info_employee_without_body(
             self, emp_id: int) -> dict:
+        """
+        Метод отправляет запрос на изменение информации о сотруднике
+        без тела запроса
+        """
 
         my_headers = {}
         my_headers["x-client-token"] = self.get_token()
@@ -169,3 +181,20 @@ class EmployeeApi:
         resp = requests.patch(
             self.url + '/employee/' + str(emp_id), headers=my_headers)
         return resp.json()
+
+    @allure.step("api.изменить информацию о сотруднике с несущест. id")
+    def change_info_employee_wrong_id(
+            self, emp_id: int) -> dict:
+        """
+        Метод отправляет запрос на изменение информации о сотруднике
+        с неправильным id сотрудника
+        """
+
+        my_headers = {}
+        my_headers["x-client-token"] = self.get_token()
+
+        resp = requests.patch(
+            self.url + '/employee/' + str(emp_id), headers=my_headers)
+        return resp.json()
+    
+
