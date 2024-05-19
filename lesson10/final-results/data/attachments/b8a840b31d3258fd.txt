@@ -1,1 +1,0 @@
-b'select * from employee where company_id =2374 order by id'
