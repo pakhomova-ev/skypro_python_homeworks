@@ -1,0 +1,1 @@
+b"insert into employee( first_name, last_name,company_id, is_active, phone, email, middle_name, birthdate, avatar_url) values ('\xd0\x9a\xd0\xb0\xd1\x81\xd1\x8c\xd1\x8f\xd0\xbd', '\xd0\x97\xd0\xb0\xd0\xb9\xd1\x86\xd0\xb5\xd0\xb2', 2373, true, 46836561967, 'smirnovapraskovja@example.net', '\xd0\xa3\xd0\xbb\xd1\x8c\xd1\x8f\xd0\xbd', '1982-07-15', 'https://ao.ru/')"
