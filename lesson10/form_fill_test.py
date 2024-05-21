@@ -45,14 +45,12 @@ class TestFormFill:
 
         driver.quit()
 
-        @allure.title("проверка свойства заполненных полей")
-        @allure.description("свойство и значение передается в методе")
-        @allure.story("цвет фона полей")
-        @allure.severity("Minor")
-        def test_background_color_fill_field_in_form(self):
-            driver = webdriver.Chrome(
-                service=Service(ChromeDriverManager().install()))
-
+@allure.title("проверка свойства заполненных полей")
+@allure.description("свойство и значение передается в методе")
+@allure.story("цвет фона полей")
+@allure.severity("Minor")
+def test_background_color_fill_field_in_form(self):
+            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
             fill_form = FormFill(driver)
             fill_form.fill_all_fields(full_id_list)
             result = fill_form.get_property_elements(
