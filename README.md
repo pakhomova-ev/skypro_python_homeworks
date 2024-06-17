@@ -8,6 +8,6 @@
 - [x] HW6
 - [x] HW7
 - [x] HW8
-- [ ] HW9
-- [ ] HW10
-- [ ] HW11
+- [x] HW9
+- [x] HW10
+- [ ] final project
