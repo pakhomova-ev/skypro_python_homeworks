@@ -364,4 +364,3 @@ class TestEmployee:
         db_emp.delete_list_emps_by_company_id(company_id)
         db_com.delete_soft(company_id)
 
-        

@@ -288,7 +288,7 @@ def test_patch_employee_without_id():
     assert result["error"] == 'Not Found'
 
 
-@pytest.mark.xfail(reason="ФР: без тела возвр. инфо по пользователю ОР: статус 400")
+@pytest.mark.xfail(reason="ФР: без тела возвр.инфо по пользователю ОР: статус 400")
 def test_patch_employee_without_body():
     new_company = com.create_company(
         'Company for changing employee', 'check all keys and values')
@@ -323,3 +323,4 @@ def test_patch_employee_wrong_id():
     # удалить компанию
     assert result["statusCode"] == 404
     assert result["message"] == 'Not Found'
+    
